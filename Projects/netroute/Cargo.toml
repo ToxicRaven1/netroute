@@ -1,0 +1,44 @@
+[package]
+name = "netroute"
+version = "0.1.0"
+edition = "2021"
+description = "Per-process traffic routing across multiple network interfaces on Windows"
+
+# This program only builds and runs on Windows. The WinDivert driver and the
+# Win32 GUI are Windows-only.
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+toml = "0.8"
+anyhow = "1"
+thiserror = "1"
+log = "0.4"
+env_logger = "0.11"
+parking_lot = "0.12"
+
+# Windows-only crates are target-gated so the pure-logic modules and their
+# tests build on any platform (`cargo test` works off Windows too). The code
+# that uses them is behind `#[cfg(windows)]`.
+
+# Packet capture and reinjection. Wraps WinDivert.dll.
+# NOTE: confirm the current crate version and API on the build machine before
+# you trust the exact call names in the engine loops.
+[target.'cfg(windows)'.dependencies]
+windivert = "0.6"
+native-windows-gui = "1.0"
+native-windows-derive = "1.0"
+
+[target.'cfg(windows)'.dependencies.windows]
+version = "0.58"
+features = [
+    "Win32_Foundation",
+    "Win32_NetworkManagement_IpHelper",
+    "Win32_NetworkManagement_Ndis",
+    "Win32_Networking_WinSock",
+]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"

@@ -1,0 +1,42 @@
+# netroute config
+#
+# Copy this file to "config.toml" next to the program, then edit it.
+#
+# "default_interface" is the interface for any app that has no route.
+# Keep it on your controlled Wi-Fi, so a new app is safe by default.
+default_interface = "wifi-proxy"
+
+# --- Interfaces ---------------------------------------------------------
+# "adapter" is the friendly name that Windows shows. Find it in
+# Settings > Network, or run "netsh interface show interface".
+# The match ignores case.
+
+[[interface]]
+id = "wifi-proxy"
+adapter = "Wi-Fi"            # the built-in card, on the controlled network
+kind = "physical"
+
+[[interface]]
+id = "hotspot"
+adapter = "Wi-Fi 2"         # the USB adapter, on the isolated hotspot
+kind = "physical"
+
+[[interface]]
+id = "torguard"
+adapter = "TorGuard-TAP"    # the VPN adapter. It is just another interface.
+kind = "vpn"
+
+# --- Routes -------------------------------------------------------------
+# Send a process out an interface. Match is on the exe name only.
+# Two instances of the SAME exe cannot split. Use two different browsers.
+
+[[route]]
+process = "firefox.exe"     # run Claude in this browser -> hotspot
+interface = "hotspot"
+
+[[route]]
+process = "chrome.exe"      # everything else -> controlled Wi-Fi
+interface = "wifi-proxy"
+
+# To add a third path later, add one [[interface]] block and one [[route]]
+# block. You do not change the program.
