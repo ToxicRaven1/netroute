@@ -1,0 +1,12 @@
+# Build output: publish netroute.exe through GitHub Releases, not the repo
+dist/
+
+# Rust leftovers from the earlier sketch
+target/
+
+# Editor and OS noise
+*.suo
+*.user
+.vs/
+Thumbs.db
+desktop.ini

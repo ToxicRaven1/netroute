@@ -28,7 +28,7 @@ home Wi-Fi and a second copy of the same browser on your hotspot, side by side.
 
 ## Get it running
 
-1. Download `netroute.exe` from the Releases page, or build it (below).
+1. Download `netroute.exe` from the [Releases page](https://github.com/ToxicRaven1/netroute/releases), or build it (below).
 2. Double-click it.
 
 That is all. It runs on any Windows 10 or 11 PC because it uses the .NET
@@ -102,7 +102,7 @@ result to `%LOCALAPPDATA%\netroute\debug.txt`.
 
 The `src/` folder and `Cargo.toml` are an earlier Rust sketch of a
 packet-capture design that was dropped; they are kept for reference only.
-#
 
+---
 
 Made with Claude Code Fable 5.1
